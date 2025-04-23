@@ -31,4 +31,5 @@ int main(){
 		InputWarga(A, pilihkota -1);
 	}
     
+    
 }

@@ -46,6 +46,26 @@ void DeleteWarga(Kota A[],int i,char NamaWarga[50]) {
     }
 }
 
-void PrintData() {
+void PrintData(Kota A[]) {
+    address P;
+    int i = 0;
 
+    while (i != 5) {
+        if (A[i].next != NULL) {
+            printf("kota: %s\n",A[i].kt);
+            P = A[i].next;
+            while (P != NULL) {
+                printf("->%s",P->nm);
+                P = P->next;
+            }
+            printf("\n\n");
+        } else {
+            if (strcmp(A[i].kt,"") == 0) {
+                printf("Kota: Kosong/Dihapus\n\n");
+            } else {
+                printf("kota: %s \nkosong\n\n",A[i].kt);
+            }
+        }
+        i++;
+    }
 }
