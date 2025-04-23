@@ -33,7 +33,7 @@ address Alokasi (char NamaWarga[50])
 	 /* Kamus Lokal */
 	 address P;
 	 /* Algoritma */
-	 P = (address) malloc (sizeof (NamaWarga));
+	 P = (address) malloc (sizeof (Warga));
 	 if (P != Nil)		/* Alokasi berhasil */
 	 {
 		strcpy(P->nm,NamaWarga);

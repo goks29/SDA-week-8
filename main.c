@@ -7,9 +7,12 @@ int main(){
     Warga warga;
     char namaKota[100];
     int JmlKota,i,opsi,pilihkota;
-    Kota* A = InputKota(&JmlKota);
+    JmlKota = 5;
+    Kota *A = malloc(JmlKota * sizeof(Kota)); // alokasi array kota
+    for (int i = 0; i < JmlKota; i++) {
+    InputKota(A, i); // isi data kota ke-i
+    }
     
-
     while(1) { 
         printf("Menu : \n");
         printf("1. Masukan Data Warga\n2. Delete Kota\n3. Delete Warga\n4. Print Data\nPilih Opsi (1/2) : ");

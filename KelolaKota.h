@@ -2,9 +2,9 @@
 #define KelolaKota_H
 #include "SpNRSLL.H"
 
-Kota* InputKota(int* jumlahKota); 
+void InputKota(Kota *ListKota, int index);
 
-void InputWarga(Kota A[]);
+void InputWarga(Kota A[], int index);
 
 void DeleteKota(Kota A[],int i);
 
