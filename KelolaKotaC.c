@@ -1,13 +1,13 @@
 #include "KelolaKota.h"
 
-void InputKota(Kota *ListKota, int index) {
+void InputKota(Kota A[], int index) {
     printf("Masukan Nama Kota ke-%d : ",index+1);
     scanf("%s",ListKota[index].kt);
     
     ListKota[index].next = NULL;
 }
 
-void InputWarga(Kota *ListKota, int Index) {
+void InputWarga(Kota A[], int Index) {
 	Warga warga;
 	char namaorang[100];
 	printf("Masukan Data Nama : ");
