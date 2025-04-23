@@ -6,7 +6,7 @@ int main(){
 	Warga warga;
 	Kota A[5];	
 	char namaKota[100];
-    int JmlKota,i,opsi;
+    int JmlKota,i,opsi,pilihkota;
     printf("Masukan jumlah kota yang ingin di-input : ");
     scanf("%d",&JmlKota);
     getchar();
