@@ -44,7 +44,7 @@ void CreateList (List * L);
 /* FS : Terbentuk List Kosong */
 
 /**** Manajemen Memory ****/
-address Alokasi (Warga X);
+address Alokasi (char NamaWarga[50]);
 /* Mengirimkan address hasil alokasi sebuah elemen */
 /* Jika alokasi berhasil, maka address != Nil, 	   */
 /*	dan misalnya menghasilkan P, maka Info(P) = X, Next(P) = Nil */

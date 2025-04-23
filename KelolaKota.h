@@ -4,7 +4,7 @@
 
 void InputKota(Kota *ListKota,int index); 
 
-void InputWarga(Kota *ListKota);
+void InputWarga(Kota *ListKota, int Index);
 
 void DeleteKota(Kota A[],int i);
 

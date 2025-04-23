@@ -24,7 +24,7 @@ void CreateList (List * L)
 }
 
 /**** Manajemen Memory ****/
-address Alokasi (Warga X)
+address Alokasi (char NamaWarga[50])
 /* Mengirimkan address hasil alokasi sebuah elemen */
 /* Jika alokasi berhasil, maka address != Nil, 	   */
 /*	dan misalnya menghasilkan P, maka Info(P) = X, Next(P) = Nil */
@@ -36,7 +36,7 @@ address Alokasi (Warga X)
 	 P = (address) malloc (sizeof (Warga));
 	 if (P != Nil)		/* Alokasi berhasil */
 	 {
-		strcpy(P->nm,X.nm);
+		strcpy(P->nm,NamaWarga);
 		P->next = Nil;
 	 }
 	 return (P);
@@ -129,27 +129,27 @@ address SearchPrec (List L, char NamaWarga[50])
 
 /**** PRIMITIF BERDASARKAN NILAI ****/
 /**** Penambahan Elemen ****/
-void InsVFirst (List * L, const char *Nama, int Nilai)
-/* IS : L mungkin Kosong */
-/* FS : melakukan alokasi sebuah elemen dan */
-/* menambahkan elemen pertama dengan nilai X jika alokasi berhasil */
-{
-	 /* Kamus Lokal */
-	address P;
-	Warga X;
-	 /* Algoritma */
-	strcpy(X.nm,Nama);
+// void InsVFirst (List * L, const char *Nama, int Nilai)
+// /* IS : L mungkin Kosong */
+// /* FS : melakukan alokasi sebuah elemen dan */
+// /* menambahkan elemen pertama dengan nilai X jika alokasi berhasil */
+// {
+// 	 /* Kamus Lokal */
+// 	address P;
+// 	char X[50];
+// 	 /* Algoritma */
+// 	strcpy(X.nm,Nama);
 
-	P = Alokasi(X);
+// 	P = Alokasi(X);
 	
-	if (P != Nil) {
-		P->next = (*L).First;
-		(*L).First = P; 
-	}
-	//Buatkan algoritma sesuai spesifikasi modul ini
-}
+// 	if (P != Nil) {
+// 		P->next = (*L).First;
+// 		(*L).First = P; 
+// 	}
+// 	//Buatkan algoritma sesuai spesifikasi modul ini
+// }
 
-void InsVLast (List * L, const char *Nama)
+void InsVLast (List * L, char NamaWarga[50])
 /* IS : L mungkin Kosong */
 /* FS : melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen list di akhir (elemen terakhir adalah yang baru) */
@@ -160,10 +160,10 @@ void InsVLast (List * L, const char *Nama)
     address temp;
     Warga X;
 
-    strcpy(X.nm, Nama);
+    strcpy(X.nm, NamaWarga);
 
     /* Algoritma */
-    P = Alokasi(X);
+    P = Alokasi(NamaWarga);
     if (P != Nil) {
         if ((*L).First == Nil) {
             (*L).First = P;
