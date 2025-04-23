@@ -39,7 +39,7 @@ boolean ListEmpty (List L);
 /* Mengirim true jika List Kosong */
 
 /**** Konstruktor/Kreator List Kosong ****/
-void CreateList (List * L);
+void CreateList (Kota A[],int i);
 /* IS : L sembarang */
 /* FS : Terbentuk List Kosong */
 

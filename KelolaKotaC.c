@@ -65,9 +65,9 @@ void DeleteWarga(Kota A[], int i, char NamaWarga[50]) {
     }
 }
 
-void PrintData(Kota A[]) {
+void PrintData(Kota A[],int jmlhKota) {
     address P;
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < jmlhKota; i++) {
         if (strlen(A[i].kt) == 0) {
             printf("Kota %d: Kosong/Dihapus\n\n", i + 1);
             continue;
