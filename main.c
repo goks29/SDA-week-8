@@ -3,17 +3,12 @@
 
 int main(){
 	
-	Warga warga;
-	Kota A[5];	
-	char namaKota[100];
+		
+    Warga warga;
+    char namaKota[100];
     int JmlKota,i,opsi,pilihkota;
-
-    printf("Masukan jumlah kota yang ingin di-input : ");
-    scanf("%d",&JmlKota);
-    getchar();
-    for(i = 0; i < JmlKota; i++){
-        InputKota(A,i);
-    }
+    Kota* A = InputKota(&JmlKota);
+    
 
     while(1) { 
         printf("Menu : \n");
