@@ -6,11 +6,11 @@ void InputKota(Kota *ListKota,int index);
 
 void InputWarga(Kota *ListKota);
 
-void DeleteKota();
+void DeleteKota(Kota A[],int i);
 
-void DeleteWarga();
+void DeleteWarga(Kota A[],int i,char NamaWarga[50]);
 
-void PrintData();
+void PrintData(Kota A[]);
 
 
 #endif
