@@ -18,16 +18,17 @@ void DeleteKota(Kota A[],int i) {
 
 void DeleteWarga(Kota A[],int i,char NamaWarga[50]) {
     address Prec, PDel;
-    List *L = &(A[i].next);
-    Prec = SearchPrec(*L,NamaWarga);
+    List L;
+    L.First = A[i].next;
+    Prec = SearchPrec(L,NamaWarga);
 
     if (Prec == Nil) {
-        PDel = L->First;
-        L->First = PDel->next;
+        PDel = L.First;
+        L.First = PDel->next;
         DeAlokasi(PDel);
     } else {
         PDel = Prec->next;
-        if (PDel != Nil && strcmp(PDel,NamaWarga)) {
+        if (PDel != Nil && strcmp(PDel->nm,NamaWarga) == 0) {
             Prec->next = PDel->next;
             PDel->next = Nil;
             free(PDel);

@@ -10,6 +10,7 @@
 #include "boolean.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #define Nil NULL
 
 typedef struct warga *address;

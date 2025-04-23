@@ -20,7 +20,5 @@ int main(){
     scanf("%d",&opsi);
     getchar();
     
-    if(opsi == 1){
-//    	InputNama(A);
-	}
+    
 }
