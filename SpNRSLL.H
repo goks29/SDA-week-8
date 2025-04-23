@@ -11,22 +11,18 @@
 #include <stdio.h>
 #include <string.h>
 #define Nil NULL
-#define Nama(P) ((P)->info.Nama)
-#define Nilai(P) ((P)->info.Nilai)
-#define Next(P) (P)->next
-#define First(L) ((L).First)
 
-typedef struct tElmtList *address;
+typedef struct warga *address;
 
-typedef struct {
-	char Nama[40];
-	int Nilai;
-} Mahasiswa;
+typedef struct kota{
+	char kt[40];
+	address next;
+} Kota;
 
-typedef struct tElmtList {
-	 Mahasiswa info;
+typedef struct warga {
+	  char nm[40];
 	 address next;
-	 } ElmtList;
+} Warga;
 
 /* Definisi list : */
 /* List kosong ===> First(L) = Nil */
@@ -47,7 +43,7 @@ void CreateList (List * L);
 /* FS : Terbentuk List Kosong */
 
 /**** Manajemen Memory ****/
-address Alokasi (Mahasiswa X);
+address Alokasi (Warga X);
 /* Mengirimkan address hasil alokasi sebuah elemen */
 /* Jika alokasi berhasil, maka address != Nil, 	   */
 /*	dan misalnya menghasilkan P, maka Info(P) = X, Next(P) = Nil */
@@ -59,7 +55,7 @@ void DeAlokasi (address P);
 /* Melakukan dealokasi / pengembalian address P ke system */
 
 /**** Pencarian sebuah elemen List ****/
-address Search (List L, Mahasiswa X);
+address Search (List L, Warga X);
 /* Mencari apakah ada elemen list dengan Info(P) = X */
 /* Jika ada, mengirimkan address elemen tsb. */
 /* Jika tidak ada, mengirimkan Nil */
@@ -68,7 +64,7 @@ boolean FSearch (List L, address P);
 /* Mencari apakah ada elemen list yang beralamat P */
 /* Mengirimkan true jika ada, false jika tidak ada */
 
-address SearchPrec (List L, Mahasiswa X);
+address SearchPrec (List L, Warga X);
 /* Mengirimkan address elemen sebelum elemen yang nilainya = X */
 /* Mencari apakah ada elemen list dengan Info(P) = X */
 /* Jika ada, mengirimkan address Prec, dengan Next(Prec) = P dan Info(P) = X */
@@ -91,12 +87,12 @@ void InsVLast (List * L, const char *Nama, int Nilai);
 /* bernilai X jika alokasi berhasil. Jika alokasi gagal IS = FS */
 
 /**** Penghapusan Elemen ****/
-void DelVFirst (List * L, Mahasiswa * X);
+void DelVFirst (List * L, Warga * X);
 /* IS : L TIDAK Kosong */
 /* FS : Elemen pertama List dihapus, nilai info disimpan ke X */
 /* 	dan alamat elemen pertama di dealokasi */
 
-void DelVLast (List * L, Mahasiswa * X);
+void DelVLast (List * L, Warga * X);
 /* IS : L TIDAK Kosong */
 /* FS : Elemen terakhir list dihapus : nilai info disimpan pada X */
 /* 	dan alamat elemen terakhir di dealokasi */
@@ -123,7 +119,7 @@ void DelFirst (List * L, address * P);
 /*	elemen list berkurang satu (mungkin menjadi kosong) */
 /* First elemen yang baru adalah suksessor elemen pertama yang lama */
 
-void DelP (List * L, Mahasiswa X);
+void DelP (List * L, Warga X);
 /* IS : L sembarang */
 /* FS : Jika ada elemen list beraddress P, dengan Info(P) = X */
 /* 	Maka P dihapus dari list dan di dealokasi */
@@ -155,10 +151,6 @@ void DelAll (List * L);
 /* Delete semua elemen list dan alamat elemen di dealokasi */
 
 void bandingkanNama (List *L);
-
-void bandingkanNilai (List *L);
-
-void copyNilai (List *L, List *S);
 
 void hapusDuplikat (List *S);
 

@@ -12,7 +12,7 @@
 boolean ListEmpty (List L)
 /* Mengirim true jika List Kosong */
 {
-	 return (First(L) == Nil);
+	 return (L.First == Nil);
 }
 
 /**** Konstruktor/Kreator List Kosong ****/
@@ -20,11 +20,11 @@ void CreateList (List * L)
 /* IS : L sembarang */
 /* FS : Terbentuk List Kosong */
 {
-	 First(*L) = Nil;
+	 (*L).First = Nil;
 }
 
 /**** Manajemen Memory ****/
-address Alokasi (Mahasiswa X)
+address Alokasi (Warga X)
 /* Mengirimkan address hasil alokasi sebuah elemen */
 /* Jika alokasi berhasil, maka address != Nil, 	   */
 /*	dan misalnya menghasilkan P, maka Info(P) = X, Next(P) = Nil */
@@ -33,12 +33,11 @@ address Alokasi (Mahasiswa X)
 	 /* Kamus Lokal */
 	 address P;
 	 /* Algoritma */
-	 P = (address) malloc (sizeof (ElmtList));
+	 P = (address) malloc (sizeof (Warga));
 	 if (P != Nil)		/* Alokasi berhasil */
 	 {
-		strcpy(Nama(P),X.Nama);
-		Nilai(P) = X.Nilai; 
-		Next(P) = Nil;
+		strcpy(P->nm,X.nm);
+		P->next = Nil;
 	 }
 	 return (P);
 }
@@ -55,7 +54,7 @@ void DeAlokasi (address P)
 }
 
 /**** Pencarian sebuah elemen List ****/
-address Search (List L, Mahasiswa X)
+address Search (List L, Warga X)
 /* Mencari apakah ada elemen list dengan Info(P) = X */
 /* Jika ada, mengirimkan address elemen tsb. */
 /* Jika tidak ada, mengirimkan Nil */
@@ -65,13 +64,13 @@ address Search (List L, Mahasiswa X)
 	 address P;
 	 boolean found =  false;
 	 /* algoritma */
-	 P = First(L);
+	 P = L.First;
 	 while ((P != Nil) && (!found))
 	 {
-		if (Nama(P) == X.Nama)
+		if (P->nm == X.nm)
 		{	found = true; 	}
 		else
-		{	P = Next(P);	}
+		{	P = P->next;	}
 	 }	/* P = Nil atau Ketemu */
 	
 	 return (P);
@@ -85,19 +84,19 @@ boolean FSearch (List L, address P)
 	 boolean found=false;
 	 address PSearch;
 	 /* Algortima */
-	 PSearch = First(L);
+	 PSearch = L.First;
 	 while ((PSearch != Nil) && (!found))
 	 {
 		if (PSearch == P)
 		{	found = true; 	}
 		else
-		{	PSearch = Next(PSearch);	}
+		{	PSearch = PSearch->next;	}
 	 }	/* PSearch = Nil atau Ketemu */
 	 
 	 return (found);
 }
 
-address SearchPrec (List L, Mahasiswa X)
+address SearchPrec (List L, Warga X)
 /* Mengirimkan address elemen sebelum elemen yang nilainya = X */
 /* Mencari apakah ada elemen list dengan Info(P) = X */
 /* Jika ada, mengirimkan address Prec, dengan Next(Prec) = P dan Info(P) = X */
@@ -111,15 +110,15 @@ address SearchPrec (List L, Mahasiswa X)
 	boolean found=false;
 	 /* Algoritma */
 	Prec = Nil;
-	P = First(L);
+	P = L.First;
 	while ((P != Nil) && (!found))
 	{
-		 if (Nama(P) == X.Nama)
+		 if (P->nm == X.nm)
 		 {	found = true;	}
 		 else
 		 {
 			Prec = P;
-			P = Next(P);
+			P = P->next;
 		 }
 	}    /* P = Nil atau Ketemu */
 	if (found)
@@ -137,53 +136,49 @@ void InsVFirst (List * L, const char *Nama, int Nilai)
 {
 	 /* Kamus Lokal */
 	address P;
-	Mahasiswa X;
+	Warga X;
 	 /* Algoritma */
-	strcpy(X.Nama,Nama);
-	X.Nilai = Nilai;
+	strcpy(X.nm,Nama);
 
 	P = Alokasi(X);
 	
 	if (P != Nil) {
-		Next(P) = First(*L);
-		First(*L) = P; 
+		P->next = (*L).First;
+		(*L).First = P; 
 	}
 	//Buatkan algoritma sesuai spesifikasi modul ini
 }
 
-void InsVLast (List * L, const char *Nama, int Nilai)
+void InsVLast (List * L, const char *Nama)
 /* IS : L mungkin Kosong */
 /* FS : melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen list di akhir (elemen terakhir adalah yang baru) */
 /* bernilai X jika alokasi berhasil. Jika alokasi gagal IS = FS */
 {
-	 /* Kamus Lokal */
-	address P;
-	address temp;
-	Mahasiswa X;
+    /* Kamus Lokal */
+    address P;
+    address temp;
+    Warga X;
 
-	strcpy(X.Nama,Nama);
-	X.Nilai = Nilai;
+    strcpy(X.nm, Nama);
 
-	 /* Algoritma */
-	 P = Alokasi(X);
-	 if (P != Nil) {
-		if (First(*L) == Nil) {
-			First(*L) = P;
-		 } else {
-			temp = First(*L);
-			while(Next(temp) != NULL) {
-				temp = Next(temp);
-			}
-			Next(temp) = P;
-		 }
-	 }
-	 
-	 //Buatkan algoritma sesuai spesifikasi modul ini
+    /* Algoritma */
+    P = Alokasi(X);
+    if (P != Nil) {
+        if ((*L).First == Nil) {
+            (*L).First = P;
+        } else {
+            temp = (*L).First;
+            while (temp->next != Nil) {
+                temp = temp->next;
+            }
+            temp->next = P;
+        }
+    }
 }
 
 /**** Penghapusan Elemen ****/
-void DelVFirst (List * L, Mahasiswa * X)
+void DelVFirst (List * L, Warga * X)
 /* IS : L TIDAK Kosong */
 /* FS : Elemen pertama List dihapus, nilai info disimpan ke X */
 /* 	dan alamat elemen pertama di dealokasi */
@@ -191,14 +186,14 @@ void DelVFirst (List * L, Mahasiswa * X)
 	 /* Kamus Lokal */
 	address P;
 	 /* Algoritma */
-	P = First(*L);
-	strcpy(X->Nama,Nama(P));
-	First(*L) = Next(P);
+	P = (*L).First;
+	strcpy(X->nm,P->nm);
+	(*L).First = P->next;
 	DeAlokasi(P);
 	 //Buatkan algoritma sesuai spesifikasi modul ini
 }
 
-void DelVLast (List * L, Mahasiswa * X)
+void DelVLast (List * L, Warga * X)
 /* IS : L TIDAK Kosong */
 /* FS : Elemen terakhir list dihapus : nilai info disimpan pada X */
 /* 	dan alamat elemen terakhir di dealokasi */
@@ -206,20 +201,20 @@ void DelVLast (List * L, Mahasiswa * X)
 	 /* Kamus Lokal */
 	address PDel,prev = Nil;
 	 /* Algoritma */
-	 PDel = First(*L);
-	 if (Next(PDel) == Nil) {
-		strcpy(X->Nama,Nama(PDel));
-		First(*L) = Nil;
+	 PDel = (*L).First;
+	 if (PDel->next == Nil) {
+		strcpy(X->nm,PDel->nm);
+		(*L).First = Nil;
 		DeAlokasi(PDel);
 		return;
 	 } 
 
-	 while(Next(PDel) != Nil) {
+	 while(PDel->next != Nil) {
 		prev = PDel;
-		PDel = Next(PDel);
+		PDel = PDel->next;
 	 }
-	 strcpy(X->Nama,Nama(prev));
-	 Next(prev) = Nil;
+	 strcpy(X->nm,prev->nm);
+	 prev->next = Nil;
 	 DeAlokasi(PDel);
 	 //Buatkan algoritma sesuai spesifikasi modul ini
 }
@@ -230,8 +225,8 @@ void InsertFirst (List * L, address P)
 /* IS : L sembarang, P sudah dialokasi */
 /* FS : menambahkan elemen ber-address P sebagai elemen pertama */
 {
-	Next(P) = First(*L);
-	First(*L) = P;
+	P->next = (*L).First;
+	(*L).First = P;
 	//Buatkan algoritma sesuai spesifikasi modul ini
 }
 
@@ -241,8 +236,8 @@ void InsertAfter (List * L, address P, address Prec)
 /* FS : Insert P sebagai elemen sesudah elemen beralamat Prec */
 {
 	if (Prec != NULL) {
-		Next(P) = Next(Prec);
-		Next(Prec) = P; 
+		P->next = Prec->next;
+		Prec->next = P; 
 	}
 	//Buatkan algoritma sesuai spesifikasi modul ini
 }
@@ -254,14 +249,14 @@ void InsertLast (List * L, address P)
 	 /* Kamus Lokal */
 	address Last;
 	 /* Algoritma */
-	 if (First(*L) == Nil) {
-		First(*L) = P;
+	 if ((*L).First == Nil) {
+		(*L).First = P;
 	 } else {
-		Last = First(*L);
-		while (Next(Last) != Nil) {
-			Last = Next(Last);
+		Last = (*L).First;
+		while (Last->next != Nil) {
+			Last = Last->next;
 		}
-		Next(Last) = P;
+		Last->next = P;
 	 }
 	 //Buatkan algoritma sesuai spesifikasi modul ini
 }
@@ -273,16 +268,16 @@ void DelFirst (List * L, address * P)
 /*	elemen list berkurang satu (mungkin menjadi kosong) */
 /* First elemen yang baru adalah suksessor elemen pertama yang lama */
 {
-	if (First(*L) != Nil) {
-		*P = First(*L);
-		First(*L) = Next(*P);
+	if ((*L).First != Nil) {
+		*P = (*L).First;
+		(*L).First = (*P)->next;
 		DeAlokasi(*P);
 	}
 	//Buatkan algoritma sesuai spesifikasi modul ini
 }
 
 
-void DelP (List * L, Mahasiswa X)
+void DelP (List * L, Warga X)
 /* IS : L sembarang */
 /* FS : Jika ada elemen list beraddress P, dengan Info(P) = X */
 /* 	Maka P dihapus dari list dan di dealokasi */
@@ -298,11 +293,11 @@ void DelP (List * L, Mahasiswa X)
 	 P = Search(*L,X);
 
 	 if (Prec == Nil) {
-		P = First(*L);
-		Next(First(*L)) = Next(P);
+		P = (*L).First;
+		(*L).First->next = P->next;
 		DeAlokasi(P);
 	 } else {
-		Next(Prec) = Next(P);
+		Prec->next = P->next;
 		DeAlokasi(P);
 	 } 
 	 //Buatkan algoritma sesuai spesifikasi modul ini
@@ -317,16 +312,16 @@ void DelLast (List * L, address * P)
 	 /* Kamus Lokal */
 	address Prec;
 	 /* Algoritma */
-	 *P = First(*L);
-	 if (Next(First(*L)) != Nil) {
+	 *P = (*L).First;
+	 if ((*L).First->next != Nil) {
 
-		while (Next(*P) != Nil) {
+		while ((*P)->next != Nil) {
 			Prec = *P;
-			*P = Next(*P);
+			*P = (*P)->next;
 		}
-		Next(Prec) = Nil;
+		Prec->next = Nil;
 	 } else {
-		First(*L) = Nil;
+		(*L).First = Nil;
 	 }
 	 DeAlokasi(*P);
 	 //Buatkan algoritma sesuai spesifikasi modul ini
@@ -336,9 +331,9 @@ void DelAfter (List * L, address * Pdel, address Prec)
 /* IS : L TIDAK Kosong, Prec adalah anggota List */
 /* FS : menghapus Next(Prec): Pdel adalah alamat elemen list yang dihapus */
 {
-	if (First(*L) != Nil) {
-		*Pdel = Next(Prec);
-		Next(Prec) = Next(*Pdel);
+	if ((*L).First != Nil) {
+		*Pdel = Prec->next;
+		Prec->next = (*Pdel)->next;
 		DeAlokasi(*Pdel);
 	}
 	 //Buatkan algoritma sesuai spesifikasi modul ini
@@ -354,14 +349,13 @@ void PrintInfo (List L)
 	address P;
 	int i = 1;
 	 /* Algoritma */
-	P = First(L);
+	P = L.First;
 	if (P == Nil) {
 		printf("List Kosong");
 	} else {
 		while (P != Nil){
-			printf("%d. Nama : %s\n",i,Nama(P));
-			printf("   Nilai : %d\n\n",Nilai(P));
-			P = Next(P);
+			printf("%d. Nama : %s\n",i,P->nm);
+			P = P->next;
 			i++;
 		}
 	}
@@ -375,13 +369,13 @@ void DelAll (List * L)
 	 /* Kamus Lokal */
 	address PDel;
 	 /* Algoritma */
-	 PDel = First(*L);
+	 PDel = (*L).First;
 	 while(PDel != Nil) {
-		First(*L) = Next(PDel);
+		(*L).First = PDel->next;
 		DeAlokasi(PDel);
-		PDel = First(*L);
+		PDel = (*L).First;
 	 }
-	 First(*L) = Nil;
+	 (*L).First = Nil;
 	 //Buatkan algoritma sesuai spesifikasi modul ini
 }
 
@@ -390,81 +384,35 @@ void bandingkanNama (List * L)
 	address P;
 	char temp[100];
 
-	P = First(*L);
-	if (First(*L) != Nil ) {
+	P = (*L).First;
+	if ((*L).First != Nil ) {
 		while (P->next != Nil) {
-			if(strcmp(Nama(P),Next(P)->info.Nama) > 0) {
-				strcpy(temp,Nama(P));
-				strcpy(Nama(P),Next(P)->info.Nama);
-				strcpy(Next(P)->info.Nama,temp);
-			}
-			P = Next(P);
-		}
-	}
-}
-
-void bandingkanNilai (List *L)
-{
-	address P,After;
-	int temp;
-
-	P = First(*L);
-	if (First(*L ) != Nil) {
-		while (P != Nil) {
-			After = P;
-			while (Next(After) != Nil) {
-				if (Nilai(P) < Next(After)->info.Nilai) {
-					temp = Nilai(P);
-					Nilai(P) = Next(After)->info.Nilai;
-					Next(After)->info.Nilai = temp;
-				} else {
-					After = Next(After);
-				}
+			if(strcmp(P->nm,P->next->nm) > 0) {
+				strcpy(temp,P->nm);
+				strcpy(P->nm,P->next->nm);
+				strcpy(P->next->nm,temp);
 			}
 			P = P->next;
 		}
 	}
 }
 
-void copyNilai (List *L, List *S) {
-	address P,temp;
-
-	P = First(*L);
-	temp = Nil;
-
-	while (P != Nil) {
-		if (Nilai(P) > 70) {
-			address New = Alokasi(P->info);
-			if (New != Nil) {
-				New->next = Nil;
-
-				if (First(*S) == Nil) {
-					First(*S) = New;
-				} else {
-					temp->next = New;
-				}
-			}
-			temp = New;
-		}
-		P = P->next;
-	}
-}
 
 void hapusDuplikat (List *S) {
 	address P,temp,After;
 
-	P = First(*S);
+	P = (*S).First;
 
 	if (P != Nil) {
 		while (P->next != Nil) {
 			After = P;
-			while (Next(After) != Nil) {
-				if (strcmp(Nama(P),Nama(Next(After))) == 0) {
-					temp = Next(After);
-					Next(After) = Next(After)->next;
+			while (After->next != Nil) {
+				if (strcmp(P->nm,After->next->nm) == 0) {
+					temp = After->next;
+					After->next = After->next->next;
 					DeAlokasi(temp);
 				} else {
-					After = Next(After);
+					After = After->next;
 				}
 			}
 			P = P->next;
