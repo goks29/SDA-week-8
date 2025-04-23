@@ -54,7 +54,7 @@ void DeAlokasi (address P)
 }
 
 /**** Pencarian sebuah elemen List ****/
-address Search (List L, Warga X)
+address Search (List L, char NamaWarga[50])
 /* Mencari apakah ada elemen list dengan Info(P) = X */
 /* Jika ada, mengirimkan address elemen tsb. */
 /* Jika tidak ada, mengirimkan Nil */
@@ -67,7 +67,7 @@ address Search (List L, Warga X)
 	 P = L.First;
 	 while ((P != Nil) && (!found))
 	 {
-		if (P->nm == X.nm)
+		if (strcmp(P->nm,NamaWarga) == 0)
 		{	found = true; 	}
 		else
 		{	P = P->next;	}
@@ -96,7 +96,7 @@ boolean FSearch (List L, address P)
 	 return (found);
 }
 
-address SearchPrec (List L, Warga X)
+address SearchPrec (List L, char NamaWarga[50])
 /* Mengirimkan address elemen sebelum elemen yang nilainya = X */
 /* Mencari apakah ada elemen list dengan Info(P) = X */
 /* Jika ada, mengirimkan address Prec, dengan Next(Prec) = P dan Info(P) = X */
@@ -113,7 +113,7 @@ address SearchPrec (List L, Warga X)
 	P = L.First;
 	while ((P != Nil) && (!found))
 	{
-		 if (P->nm == X.nm)
+		 if (strcmp(P->nm,NamaWarga))
 		 {	found = true;	}
 		 else
 		 {
@@ -277,31 +277,31 @@ void DelFirst (List * L, address * P)
 }
 
 
-void DelP (List * L, Warga X)
-/* IS : L sembarang */
-/* FS : Jika ada elemen list beraddress P, dengan Info(P) = X */
-/* 	Maka P dihapus dari list dan di dealokasi */
-/* Jika tidak ada elemen list dengan Info(P) = X, maka list tetap */
-/* List mungkin menjadi kosong karena penghapusan */
-{
-	 /* Kamus Lokal */
-	address P, Prec;
-	boolean found=false;
+// void DelP (List * L, Warga X)
+// /* IS : L sembarang */
+// /* FS : Jika ada elemen list beraddress P, dengan Info(P) = X */
+// /* 	Maka P dihapus dari list dan di dealokasi */
+// /* Jika tidak ada elemen list dengan Info(P) = X, maka list tetap */
+// /* List mungkin menjadi kosong karena penghapusan */
+// {
+// 	 /* Kamus Lokal */
+// 	address P, Prec;
+// 	boolean found=false;
 	 
-	 /* Algoritma */
-	 Prec = SearchPrec(*L,X);
-	 P = Search(*L,X);
+// 	 /* Algoritma */
+// 	 Prec = SearchPrec(*L,X);
+// 	 P = Search(*L,X);
 
-	 if (Prec == Nil) {
-		P = (*L).First;
-		(*L).First->next = P->next;
-		DeAlokasi(P);
-	 } else {
-		Prec->next = P->next;
-		DeAlokasi(P);
-	 } 
-	 //Buatkan algoritma sesuai spesifikasi modul ini
-}
+// 	 if (Prec == Nil) {
+// 		P = (*L).First;
+// 		(*L).First->next = P->next;
+// 		DeAlokasi(P);
+// 	 } else {
+// 		Prec->next = P->next;
+// 		DeAlokasi(P);
+// 	 } 
+// 	 //Buatkan algoritma sesuai spesifikasi modul ini
+// }
 
 void DelLast (List * L, address * P)
 /* IS : L TIDAK kosong */

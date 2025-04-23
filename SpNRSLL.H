@@ -55,7 +55,7 @@ void DeAlokasi (address P);
 /* Melakukan dealokasi / pengembalian address P ke system */
 
 /**** Pencarian sebuah elemen List ****/
-address Search (List L, Warga X);
+address Search (List L, char NamaWarga[50]);
 /* Mencari apakah ada elemen list dengan Info(P) = X */
 /* Jika ada, mengirimkan address elemen tsb. */
 /* Jika tidak ada, mengirimkan Nil */
@@ -64,7 +64,7 @@ boolean FSearch (List L, address P);
 /* Mencari apakah ada elemen list yang beralamat P */
 /* Mengirimkan true jika ada, false jika tidak ada */
 
-address SearchPrec (List L, Warga X);
+address SearchPrec (List L, char NamaWarga[50]);
 /* Mengirimkan address elemen sebelum elemen yang nilainya = X */
 /* Mencari apakah ada elemen list dengan Info(P) = X */
 /* Jika ada, mengirimkan address Prec, dengan Next(Prec) = P dan Info(P) = X */
