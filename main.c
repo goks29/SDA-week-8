@@ -17,7 +17,7 @@ int main(){
 
     while(1) { 
         printf("Menu : \n");
-        printf("1. Masukan Data Warga\n2. Delete Warga\n3. Print Warga\nPilih Opsi (1/2) : ");
+        printf("1. Masukan Data Warga\n2. Delete Kota\n3. Delete Warga\n4. Print Data\nPilih Opsi (1/2) : ");
         scanf("%d",&opsi);
         getchar();
         
@@ -33,7 +33,14 @@ int main(){
         }
         
         if (opsi == 2){
+            for(i=0;i<JmlKota;i++){
+                printf("%d. %s\n",i+1,A[i].kt);
+            }
+            printf("Pilih No Kota yang ingin dihapus : ");
+            scanf("%d",&pilihkota);
+            getchar();
             
+            DeleteKota(A, pilihkota -1);
         }
     }
     

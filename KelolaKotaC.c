@@ -4,9 +4,17 @@
 #include <stdlib.h>
 
 void InputKota(Kota *ListKota, int index) {
+    Kota *P;
+    char NamaWarga[50];
     printf("Masukan Nama Kota ke-%d : ", index + 1);
-    scanf("%s", ListKota[index].kt);
-    ListKota[index].next = NULL;
+    scanf("%s", NamaWarga);
+    P =(Kota *)malloc(sizeof(Kota));
+    if (P != Nil)
+    {
+       strcpy(P->kt,NamaWarga);
+       P->next = Nil;
+    }
+    ListKota[index] = *P;
 }
 
 void InputWarga(Kota *ListKota, int index) {
