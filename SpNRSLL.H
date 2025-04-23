@@ -8,7 +8,7 @@
 #ifndef spnrsll_H
 #define spnrsll_H
 #include "boolean.h"
-#include <stdio.h>
+#include <stdio.h>gi
 #include <string.h>
 #define Nil NULL
 #define Nama(P) ((P)->info.Nama)
