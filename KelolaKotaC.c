@@ -1,71 +1,81 @@
 #include "KelolaKota.h"
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-void InputKota(Kota A[], int index) {
-    printf("Masukan Nama Kota ke-%d : ",index+1);
-    scanf("%s",ListKota[index].kt);
-    
+void InputKota(Kota *ListKota, int index) {
+    printf("Masukan Nama Kota ke-%d : ", index + 1);
+    scanf("%s", ListKota[index].kt);
     ListKota[index].next = NULL;
 }
 
-void InputWarga(Kota A[], int Index) {
-	Warga warga;
-	char namaorang[100];
-	printf("Masukan Data Nama : ");
-	scanf("%s",warga.nm);
-	
-	address Listbaru = Alokasi(warga);
-	if(Listbaru==NULL){
-		printf("alokasi gagal");
-		return;
-	}
-	
+void InputWarga(Kota *ListKota, int index) {
+    char warga[50];
+    printf("Masukan Nama Warga: ");
+    scanf("%s", warga);
+
+    address newNode = Alokasi(warga);
+    if (newNode == NULL) {
+        printf("Alokasi gagal\n");
+        return;
+    }
+    if (ListKota[index].next == NULL) {
+        ListKota[index].next = newNode;
+    } else {
+        address temp = ListKota[index].next;
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
 }
 
-void DeleteKota(Kota A[],int i) {
-    strcpy(A[i].kt,"");
-    A[i].next = Nil;
+void DeleteKota(Kota A[], int i) {
+    strcpy(A[i].kt, "");
+    A[i].next = NULL;
 }
 
-void DeleteWarga(Kota A[],int i,char NamaWarga[50]) {
+void DeleteWarga(Kota A[], int i, char NamaWarga[50]) {
     address Prec, PDel;
     List L;
     L.First = A[i].next;
-    Prec = SearchPrec(L,NamaWarga);
+    Prec = SearchPrec(L, NamaWarga);
 
     if (Prec == Nil) {
         PDel = L.First;
-        L.First = PDel->next;
-        DeAlokasi(PDel);
+        if (PDel != NULL && strcmp(PDel->nm, NamaWarga) == 0) {
+            A[i].next = PDel->next;
+            DeAlokasi(PDel);
+        }
     } else {
         PDel = Prec->next;
-        if (PDel != Nil && strcmp(PDel->nm,NamaWarga) == 0) {
+        if (PDel != NULL && strcmp(PDel->nm, NamaWarga) == 0) {
             Prec->next = PDel->next;
-            PDel->next = Nil;
-            free(PDel);
+            PDel->next = NULL;
+            DeAlokasi(PDel);
         }
     }
 }
 
 void PrintData(Kota A[]) {
     address P;
-    int i = 0;
+    for (int i = 0; i < 5; i++) {
+        if (strlen(A[i].kt) == 0) {
+            printf("Kota %d: Kosong/Dihapus\n\n", i + 1);
+            continue;
+        }
 
-    while (i != 5) {
-        if (A[i].next != NULL) {
-            printf("kota: %s\n",A[i].kt);
+        printf("Kota %d: %s\n", i + 1, A[i].kt);
+
+        if (A[i].next == NULL) {
+            printf("-> Tidak ada warga\n\n");
+        } else {
             P = A[i].next;
             while (P != NULL) {
-                printf("->%s",P->nm);
+                printf("-> %s ", P->nm);
                 P = P->next;
             }
             printf("\n\n");
-        } else {
-            if (strcmp(A[i].kt,"") == 0) {
-                printf("Kota: Kosong/Dihapus\n\n");
-            } else {
-                printf("kota: %s \nkosong\n\n",A[i].kt);
-            }
         }
-        i++;
     }
 }
