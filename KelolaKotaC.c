@@ -1,7 +1,7 @@
 #include "KelolaKota.h"
 
 void InputKota() {
-
+    
 }
 
 void InputWarga() {

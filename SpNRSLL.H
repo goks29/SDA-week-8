@@ -8,7 +8,7 @@
 #ifndef spnrsll_H
 #define spnrsll_H
 #include "boolean.h"
-#include <stdio.h>gi
+#include <stdio.h>
 #include <string.h>
 #define Nil NULL
 
