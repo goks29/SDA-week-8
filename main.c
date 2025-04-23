@@ -20,5 +20,15 @@ int main(){
     scanf("%d",&opsi);
     getchar();
     
+    if(opsi == 1){
+		for(i=0;i<JmlKota;i++){
+			printf("%d. %s\n",i+1,A[i].kt);
+		}
+		printf("Pilih No Kota yang ingin Ditambahkan : ");
+		scanf("%d",&pilihkota);
+		getchar();
+		
+		InputWarga(A, pilihkota -1);
+	}
     
 }

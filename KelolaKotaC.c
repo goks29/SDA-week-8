@@ -7,8 +7,18 @@ void InputKota(Kota *ListKota, int index) {
     ListKota[index].next = NULL;
 }
 
-void InputWarga() {
-
+void InputWarga(Kota *ListKota, int Index) {
+	Warga warga;
+	char namaorang[100];
+	printf("Masukan Data Nama : ");
+	scanf("%s",warga.nm);
+	
+	address Listbaru = Alokasi(warga);
+	if(Listbaru==NULL){
+		printf("alokasi gagal");
+		return;
+	}
+	
 }
 
 void DeleteKota(Kota A[],int i) {
