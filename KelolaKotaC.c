@@ -3,18 +3,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void InputKota(Kota *ListKota, int index) {
-    Kota *P;
-    char NamaWarga[50];
-    printf("Masukan Nama Kota ke-%d : ", index + 1);
-    scanf("%s", NamaWarga);
-    P =(Kota *)malloc(sizeof(Kota));
-    if (P != Nil)
-    {
-       strcpy(P->kt,NamaWarga);
-       P->next = Nil;
+Kota* InputKota(int* jumlahKota) {
+    
+	int i;
+	printf("Masukkan jumlah kota: ");
+    scanf("%d", jumlahKota);
+    getchar();
+
+    Kota* ListKota = (Kota*) malloc((*jumlahKota) * sizeof(Kota));
+    if (ListKota == NULL) {
+        printf("Alokasi gagal.\n");
+        exit(1);
     }
-    ListKota[index] = *P;
+
+    for (i = 0; i < *jumlahKota; i++) {
+        printf("Masukkan nama kota ke-%d: ", i + 1);
+        scanf("%s", ListKota[i].kt);
+        ListKota[i].next = NULL;
+    }
+
+    return ListKota;
 }
 
 void InputWarga(Kota *ListKota, int index) {
