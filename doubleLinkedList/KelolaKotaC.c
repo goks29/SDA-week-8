@@ -3,18 +3,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void InputKota(Kota *ListKota, int index) {
-    Kota *P;
-    char NamaWarga[50];
-    printf("Masukan Nama Kota ke-%d : ", index + 1);
-    scanf("%s", NamaWarga);
-    P =(Kota *)malloc(sizeof(Kota));
-    if (P != Nil)
-    {
-       strcpy(P->kt,NamaWarga);
-       P->next = Nil;
+void InputKota(ListKota *LKota) {
+    secondAddress Last,P;
+    char NamaKota[50];
+
+    printf("Masukan Nama Kota : ");
+    scanf("%s", NamaKota);
+    P = AlokasiKota(NamaKota);
+    if (P != Nil) {
+        if (LKota->First != Nil) {
+            InsertLast(LKota,P);
+        } else {
+            LKota->First = P;
+        }
+    } else {
+        printf("Alokasi gagal");
     }
-    ListKota[index] = *P;
 }
 
 void InputWarga(Kota *ListKota, int index) {
@@ -65,25 +69,31 @@ void DeleteWarga(Kota A[], int i, char NamaWarga[50]) {
     }
 }
 
-void PrintData(Kota A[],int jmlhKota) {
-    address P;
-    for (int i = 0; i < jmlhKota; i++) {
-        if (strlen(A[i].kt) == 0) {
-            printf("Kota %d: Kosong/Dihapus\n\n", i + 1);
-            continue;
-        }
+void PrintData(ListKota LKota) {
+    secondAddress P;
+    int i = 1;
 
-        printf("Kota %d: %s\n", i + 1, A[i].kt);
+    P = LKota.First;
 
-        if (A[i].next == NULL) {
-            printf("-> Tidak ada warga\n\n");
-        } else {
-            P = A[i].next;
-            while (P != NULL) {
-                printf("-> %s ", P->nm);
-                P = P->next;
+    if (P == Nil) {
+        printf("Tidak ada Kota yang dimasukan\n");
+    } else {
+        while (P != Nil) {
+            printf("Kota ke -%d : %s\n",i, P->kt);
+    
+            if (P->next != Nil) {
+                while (P->next->next != Nil) {
+                    printf("%s ->",P->next->nm);
+                    P->next = P->next->next;
+                }
+            } else {
+                printf("Warga di kota ini kosong\n\n");
             }
-            printf("\n\n");
+    
+            P = P->nextKota;
+            i++;
         }
+    
     }
+    
 }

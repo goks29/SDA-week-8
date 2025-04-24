@@ -27,13 +27,13 @@ typedef struct warga {
 	 address next;
 } Warga;
 
-/* Definisi list : */
-/* List kosong ===> First(L) = Nil */
-/* Setiap elemen dengan address P dapat diacu info(P) dan Next(P);  */
-/* Elemen terakhir list ===> Jika addressnya Last maka Next(Last) = Nil */
 typedef struct {
-	  address First;
+	address First;
 } List;
+
+typedef struct {
+	  secondAddress First;
+} ListKota;
 
 /*********** PROTOTYPE ****************/
 /**** Predikat untuk test keadaan LIST  ****/
@@ -41,7 +41,7 @@ boolean ListEmpty (List L);
 /* Mengirim true jika List Kosong */
 
 /**** Konstruktor/Kreator List Kosong ****/
-void CreateList (Kota A[],int i);
+void CreateList (ListKota * L);
 /* IS : L sembarang */
 /* FS : Terbentuk List Kosong */
 
@@ -51,6 +51,8 @@ address Alokasi (char NamaWarga[50]);
 /* Jika alokasi berhasil, maka address != Nil, 	   */
 /*	dan misalnya menghasilkan P, maka Info(P) = X, Next(P) = Nil */
 /* Jika alokasi gagal, mengirimkan Nil */
+
+secondAddress AlokasiKota (char NamaWarga[50]);
 
 void DeAlokasi (address P);
 /* IS : P terdefinisi */
@@ -111,7 +113,7 @@ void InsertAfter (List * L, address P, address Prec);
 /*	P sudah dialokasi */
 /* FS : Insert P sebagai elemen sesudah elemen beralamat Prec */
 
-void InsertLast (List * L, address P);
+void InsertLast (ListKota * L, secondAddress P);
 /* IS : L sembarang, P sudah dialokasi */
 /* FS : P ditambahkan sebagai elemen terakhir yang baru */
 

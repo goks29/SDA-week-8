@@ -16,12 +16,11 @@ boolean ListEmpty (List L)
 }
 
 /**** Konstruktor/Kreator List Kosong ****/
-void CreateList (Kota A[],int i)
+void CreateList (ListKota * L)
 /* IS : L sembarang */
 /* FS : Terbentuk List Kosong */
 {
-	A[i].kt[0] = '\0';  
-    A[i].next = NULL;
+	(*L).First = Nil;
 }
 
 /**** Manajemen Memory ****/
@@ -43,6 +42,21 @@ address Alokasi (char NamaWarga[50])
 	 return (P);
 }
 
+secondAddress AlokasiKota (char NamaWarga[50])
+{
+	 /* Kamus Lokal */
+	 secondAddress P;
+	 /* Algoritma */
+	 P = (secondAddress) malloc (sizeof (Kota));
+	 if (P != Nil)		/* Alokasi berhasil */
+	 {
+		strcpy(P->kt,NamaWarga);
+		P->next = Nil;
+		P->nextKota = Nil;
+	 }
+	 return (P);
+}
+
 void DeAlokasi (address P)
 /* IS : P terdefinisi */
 /* FS : P dikembalikan ke sistem */
@@ -52,49 +66,6 @@ void DeAlokasi (address P)
 	 {
 		free (P);
 	 }
-}
-
-/**** Pencarian sebuah elemen List ****/
-address Search (List L, char NamaWarga[50])
-/* Mencari apakah ada elemen list dengan Info(P) = X */
-/* Jika ada, mengirimkan address elemen tsb. */
-/* Jika tidak ada, mengirimkan Nil */
-/* Menggunakan variabel bertype boolean */
-{
-	 /* Kamus Lokal */
-	 address P;
-	 boolean found =  false;
-	 /* algoritma */
-	 P = L.First;
-	 while ((P != Nil) && (!found))
-	 {
-		if (strcmp(P->nm,NamaWarga) == 0)
-		{	found = true; 	}
-		else
-		{	P = P->next;	}
-	 }	/* P = Nil atau Ketemu */
-	
-	 return (P);
-}
-
-boolean FSearch (List L, address P)
-/* Mencari apakah ada elemen list yang beralamat P */
-/* Mengirimkan true jika ada, false jika tidak ada */
-{
-	 /* Kamus Lokal */
-	 boolean found=false;
-	 address PSearch;
-	 /* Algortima */
-	 PSearch = L.First;
-	 while ((PSearch != Nil) && (!found))
-	 {
-		if (PSearch == P)
-		{	found = true; 	}
-		else
-		{	PSearch = PSearch->next;	}
-	 }	/* PSearch = Nil atau Ketemu */
-	 
-	 return (found);
 }
 
 address SearchPrec (List L, char NamaWarga[50])
@@ -128,27 +99,6 @@ address SearchPrec (List L, char NamaWarga[50])
 	{	return (Nil);		}
 }
 
-/**** PRIMITIF BERDASARKAN NILAI ****/
-/**** Penambahan Elemen ****/
-// void InsVFirst (List * L, const char *Nama, int Nilai)
-// /* IS : L mungkin Kosong */
-// /* FS : melakukan alokasi sebuah elemen dan */
-// /* menambahkan elemen pertama dengan nilai X jika alokasi berhasil */
-// {
-// 	 /* Kamus Lokal */
-// 	address P;
-// 	char X[50];
-// 	 /* Algoritma */
-// 	strcpy(X.nm,Nama);
-
-// 	P = Alokasi(X);
-	
-// 	if (P != Nil) {
-// 		P->next = (*L).First;
-// 		(*L).First = P; 
-// 	}
-// 	//Buatkan algoritma sesuai spesifikasi modul ini
-// }
 
 void InsVLast (List * L, char NamaWarga[50])
 /* IS : L mungkin Kosong */
@@ -243,21 +193,21 @@ void InsertAfter (List * L, address P, address Prec)
 	//Buatkan algoritma sesuai spesifikasi modul ini
 }
 
-void InsertLast (List * L, address P)
+void InsertLast (ListKota * L, secondAddress P)
 /* IS : L sembarang, P sudah dialokasi */
 /* FS : P ditambahkan sebagai elemen terakhir yang baru */
 {
 	 /* Kamus Lokal */
-	address Last;
+	secondAddress Last;
 	 /* Algoritma */
 	 if ((*L).First == Nil) {
 		(*L).First = P;
 	 } else {
 		Last = (*L).First;
-		while (Last->next != Nil) {
-			Last = Last->next;
+		while (Last->nextKota != Nil) {
+			Last = Last->nextKota;
 		}
-		Last->next = P;
+		Last->nextKota = P;
 	 }
 	 //Buatkan algoritma sesuai spesifikasi modul ini
 }
@@ -277,32 +227,6 @@ void DelFirst (List * L, address * P)
 	//Buatkan algoritma sesuai spesifikasi modul ini
 }
 
-
-// void DelP (List * L, Warga X)
-// /* IS : L sembarang */
-// /* FS : Jika ada elemen list beraddress P, dengan Info(P) = X */
-// /* 	Maka P dihapus dari list dan di dealokasi */
-// /* Jika tidak ada elemen list dengan Info(P) = X, maka list tetap */
-// /* List mungkin menjadi kosong karena penghapusan */
-// {
-// 	 /* Kamus Lokal */
-// 	address P, Prec;
-// 	boolean found=false;
-	 
-// 	 /* Algoritma */
-// 	 Prec = SearchPrec(*L,X);
-// 	 P = Search(*L,X);
-
-// 	 if (Prec == Nil) {
-// 		P = (*L).First;
-// 		(*L).First->next = P->next;
-// 		DeAlokasi(P);
-// 	 } else {
-// 		Prec->next = P->next;
-// 		DeAlokasi(P);
-// 	 } 
-// 	 //Buatkan algoritma sesuai spesifikasi modul ini
-// }
 
 void DelLast (List * L, address * P)
 /* IS : L TIDAK kosong */
