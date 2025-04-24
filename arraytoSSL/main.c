@@ -19,6 +19,7 @@ int main(){
     while(1) {
         printf("\n1. Masukan Data Warga\n2. Delete Warga\n3. Delete Kota\n4. Print Data\nPilih Opsi (1/2/3/4) : ");
         scanf("%d",&opsi);
+        printf("\n");
         getchar();
         
         if(opsi == 1){
