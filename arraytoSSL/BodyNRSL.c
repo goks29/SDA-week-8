@@ -5,7 +5,7 @@
 
 #include <limits.h>
 #include <malloc.h>
-#include "spnrsll.h"
+#include "SpNRSLL.H"
 
 /********** BODY SUB PROGRAM ***********/
 /**** Predikat untuk test keadaan LIST  ****/

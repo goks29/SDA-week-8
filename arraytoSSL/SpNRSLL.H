@@ -81,7 +81,7 @@ void InsVFirst (List * L, const char *Nama, int Nilai);
 /* FS : melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen pertama dengan nilai X jika alokasi berhasil */
 
-void InsVLast (List * L, const char *Nama, int Nilai);
+void InsVLast (List * L, char NamaWarga[50]);
 /* IS : L mungkin Kosong */
 /* FS : melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen list di akhir (elemen terakhir adalah yang baru) */
