@@ -21,56 +21,123 @@ void InputKota(ListKota *LKota) {
     }
 }
 
-void InputWarga(Kota *ListKota, int index) {
+void InputWarga(ListKota *LKota) {
+    secondAddress tujuan;
+    address NodeW;
+    char NamaKota[50];
     char warga[50];
+
+    printf("Masukan Nama Kota: ");
+    scanf("%s", NamaKota);
+
     printf("Masukan Nama Warga: ");
     scanf("%s", warga);
 
-    address newNode = Alokasi(warga);
-    if (newNode == NULL) {
-        printf("Alokasi gagal\n");
+    NodeW = Alokasi(warga);
+    if (NodeW != Nil) {
+        if ((*LKota).First == Nil) {
+            printf("Kota Tidak ada");
+            return;
+        }
+
+        tujuan = (*LKota).First;
+        while (tujuan != Nil && strcmp((*tujuan).kt,NamaKota) != 0) {
+            tujuan = (*tujuan).nextKota;
+        }
+
+        if (tujuan == Nil) {
+            printf("Kota tidak ditemukan");
+        }
+
+        if ((*tujuan).next == Nil) {
+            (*tujuan).next = NodeW;
+        } else {
+            InsertLastW(tujuan,NodeW);
+        }
+    } else {
+        printf("Alokasi gagal");
+    }
+}
+
+void DeleteKota(ListKota * LKota) {
+    secondAddress Pdel,Prec;
+    char NamaKota[50];
+
+    printf("Masukan nama kota yang ingin dihapus :");
+    scanf("%s",NamaKota);
+    
+    if ((strcmp(LKota->First->kt,NamaKota) == 0)) {
+        Pdel = LKota->First;
+        LKota->First = Pdel->nextKota;
+        Pdel->nextKota = Nil;
+        free(Pdel);
         return;
     }
-    if (ListKota[index].next == NULL) {
-        ListKota[index].next = newNode;
-    } else {
-        address temp = ListKota[index].next;
-        while (temp->next != NULL) {
-            temp = temp->next;
-        }
-        temp->next = newNode;
+
+    Prec = LKota->First;
+    while ((strcmp(Prec->nextKota->kt,NamaKota) != 0) && Prec->nextKota != Nil) {
+        Prec = Prec->nextKota;
     }
+
+    if (Prec->nextKota == Nil) {
+        printf("Kota tidak ada");
+        return;
+    }
+
+    Pdel = Prec->nextKota;
+    Prec->nextKota = Pdel->nextKota;
+    Pdel->nextKota = Nil;
+    free(Pdel);
 }
 
-void DeleteKota(Kota A[], int i) {
-    strcpy(A[i].kt, "");
-    A[i].next = NULL;
-}
+void DeleteWarga(ListKota *LKota) {
+    secondAddress tujuanKota;
+    address Pdel,Prec;
+    char NamaKota[50];
+    char NamaWarga[50];
 
-void DeleteWarga(Kota A[], int i, char NamaWarga[50]) {
-    address Prec, PDel;
-    List L;
-    L.First = A[i].next;
-    Prec = SearchPrec(L, NamaWarga);
+    printf("Masukan nama kota yang warganya ingin dihapus :");
+    scanf("%s",NamaKota);
 
-    if (Prec == Nil) {
-        PDel = L.First;
-        if (PDel != NULL && strcmp(PDel->nm, NamaWarga) == 0) {
-            A[i].next = PDel->next;
-            DeAlokasi(PDel);
-        }
-    } else {
-        PDel = Prec->next;
-        if (PDel != NULL && strcmp(PDel->nm, NamaWarga) == 0) {
-            Prec->next = PDel->next;
-            PDel->next = NULL;
-            DeAlokasi(PDel);
-        }
+    printf("Masukan nama warga yang ingin dihapus :");
+    scanf("%s",NamaWarga);
+
+    tujuanKota = LKota->First;
+    while ((strcmp(tujuanKota->kt,NamaKota) != 0) && tujuanKota != Nil) {
+        tujuanKota = tujuanKota->nextKota;
     }
+
+    if (tujuanKota == Nil) {
+        printf("Kota tidak ada\n");
+    }
+
+    if ((strcmp(tujuanKota->next->nm,NamaWarga) == 0) && tujuanKota->next != Nil) {
+        Pdel = tujuanKota->next;
+        tujuanKota->next = Pdel->next;
+        Pdel->next = Nil;
+        free(Pdel);
+        return;
+    }
+
+    Prec = tujuanKota->next;
+    while ((strcmp(Prec->next->nm,NamaWarga) != 0) && Prec->next != Nil) {
+        Prec = Prec->next;
+    }
+    
+    if (Prec->next == Nil) {
+        printf("Warga tidak ditemukan\n");
+    }
+        Pdel = Prec->next;
+        Prec->next = Pdel->next;
+        Pdel->next = Nil;
+        free(Pdel);
+
+    
 }
 
 void PrintData(ListKota LKota) {
     secondAddress P;
+    address PWarga;
     int i = 1;
 
     P = LKota.First;
@@ -79,12 +146,12 @@ void PrintData(ListKota LKota) {
         printf("Tidak ada Kota yang dimasukan\n");
     } else {
         while (P != Nil) {
-            printf("Kota ke -%d : %s\n",i, P->kt);
-    
+            printf("\n\nKota ke -%d : %s\n",i, P->kt);
+            PWarga = P->next;
             if (P->next != Nil) {
-                while (P->next->next != Nil) {
-                    printf("%s ->",P->next->nm);
-                    P->next = P->next->next;
+                while (PWarga != Nil) {
+                    printf("%s -> ",PWarga->nm);
+                    PWarga = PWarga->next;
                 }
             } else {
                 printf("Warga di kota ini kosong\n\n");

@@ -70,13 +70,8 @@ boolean FSearch (List L, address P);
 /* Mengirimkan true jika ada, false jika tidak ada */
 
 address SearchPrec (List L, char NamaWarga[50]);
-/* Mengirimkan address elemen sebelum elemen yang nilainya = X */
-/* Mencari apakah ada elemen list dengan Info(P) = X */
-/* Jika ada, mengirimkan address Prec, dengan Next(Prec) = P dan Info(P) = X */
-/* Jika tidak ada, mengirimkan Nil */
-/* Jika P adalah elemen pertama, maka Prec = Nil */
-/* Search dengan spesifikasi seperti ini menghindari */
-/* traversal ulang jika setelah Search akan dilakukan operasi lain */
+
+secondAddress SearchPrecK (ListKota *L, char NamaKota[50]);
 
 /**** PRIMITIF BERDASARKAN NILAI ****/
 /**** Penambahan Elemen ****/
@@ -116,6 +111,8 @@ void InsertAfter (List * L, address P, address Prec);
 void InsertLast (ListKota * L, secondAddress P);
 /* IS : L sembarang, P sudah dialokasi */
 /* FS : P ditambahkan sebagai elemen terakhir yang baru */
+
+void InsertLastW (secondAddress L, address P);
 
 /**** Penghapusan sebuah elemen ****/
 void DelFirst (List * L, address * P);

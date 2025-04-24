@@ -85,12 +85,36 @@ address SearchPrec (List L, char NamaWarga[50])
 	P = L.First;
 	while ((P != Nil) && (!found))
 	{
-		 if (strcmp(P->nm,NamaWarga))
+		 if (strcmp(P->nm,NamaWarga) == 0)
 		 {	found = true;	}
 		 else
 		 {
 			Prec = P;
 			P = P->next;
+		 }
+	}    /* P = Nil atau Ketemu */
+	if (found)
+	{	return (Prec);		}
+	else
+	{	return (Nil);		}
+}
+
+secondAddress SearchPrecK (ListKota *L, char NamaKota[50])
+{
+	 /* Kamus Lokal */
+	secondAddress Prec, P;
+	boolean found=false;
+	 /* Algoritma */
+	Prec = Nil;
+	P = (*L).First;
+	while ((P != Nil) && (!found))
+	{
+		 if (strcmp(P->kt,NamaKota) == 0)
+		 {	found = true;	}
+		 else
+		 {
+			Prec = P;
+			P = P->nextKota;
 		 }
 	}    /* P = Nil atau Ketemu */
 	if (found)
@@ -208,6 +232,26 @@ void InsertLast (ListKota * L, secondAddress P)
 			Last = Last->nextKota;
 		}
 		Last->nextKota = P;
+	 }
+	 //Buatkan algoritma sesuai spesifikasi modul ini
+}
+
+void InsertLastW (secondAddress L, address P)
+/* IS : L sembarang, P sudah dialokasi */
+/* FS : P ditambahkan sebagai elemen terakhir yang baru */
+{
+	 /* Kamus Lokal */
+	address LastW, FirstW;
+	FirstW = L->next;
+	 /* Algoritma */
+	 if (FirstW == Nil) {
+		FirstW = P;
+	 } else {
+		LastW = FirstW;
+		while (LastW->next != Nil) {
+			LastW = LastW->next;
+		}
+		LastW->next = P;
 	 }
 	 //Buatkan algoritma sesuai spesifikasi modul ini
 }

@@ -4,11 +4,11 @@
  
 void InputKota(ListKota *LKota);
 
-void InputWarga(Kota A[], int index);
+void InputWarga(ListKota *LKota);
 
-void DeleteKota(Kota A[],int i);
+void DeleteKota(ListKota *LKota);
 
-void DeleteWarga(Kota A[],int i,char NamaWarga[50]);
+void DeleteWarga(ListKota *LKota);
 
 void PrintData(ListKota LKota);
 
