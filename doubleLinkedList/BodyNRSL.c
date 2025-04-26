@@ -42,7 +42,7 @@ address Alokasi (char NamaWarga[50])
 	 return (P);
 }
 
-secondAddress AlokasiKota (char NamaWarga[50])
+secondAddress AlokasiKota (char NamaKota[50])
 {
 	 /* Kamus Lokal */
 	 secondAddress P;
@@ -50,7 +50,7 @@ secondAddress AlokasiKota (char NamaWarga[50])
 	 P = (secondAddress) malloc (sizeof (Kota));
 	 if (P != Nil)		/* Alokasi berhasil */
 	 {
-		strcpy(P->kt,NamaWarga);
+		strcpy(P->kt,NamaKota);
 		P->next = Nil;
 		P->nextKota = Nil;
 	 }
