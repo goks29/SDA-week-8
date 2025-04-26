@@ -8,7 +8,7 @@ int main(){
     char namaKota[100],NamaDihapus[100];
     int JmlKota, i, opsi, pilihkota, KotaDihapus;
     
-    printf("masukan jumlah kota : ");
+    printf("masukan jumlah kota (maksimal 5) : ");
     scanf("%d",&JmlKota);
     getchar();
     

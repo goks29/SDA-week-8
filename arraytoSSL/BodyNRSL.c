@@ -114,7 +114,7 @@ address SearchPrec (List L, char NamaWarga[50])
 	P = L.First;
 	while ((P != Nil) && (!found))
 	{
-		 if (strcmp(P->nm,NamaWarga))
+		 if (strcmp(P->nm,NamaWarga) == 0)
 		 {	found = true;	}
 		 else
 		 {
