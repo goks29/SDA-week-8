@@ -61,6 +61,7 @@ void InputWarga(ListKota *LKota) {
 
 void DeleteKota(ListKota * LKota) {
     secondAddress Pdel,Prec;
+    address PWarga, tempWarga;
     char NamaKota[50];
 
     printf("Masukan nama kota yang ingin dihapus :");
@@ -68,6 +69,12 @@ void DeleteKota(ListKota * LKota) {
     
     if ((strcmp(LKota->First->kt,NamaKota) == 0)) {
         Pdel = LKota->First;
+        PWarga = LKota->First->next;
+        while (PWarga != NULL) {
+            tempWarga = PWarga;
+            PWarga = PWarga->next;
+            free(tempWarga);
+        }
         LKota->First = Pdel->nextKota;
         Pdel->nextKota = Nil;
         free(Pdel);
@@ -85,6 +92,12 @@ void DeleteKota(ListKota * LKota) {
     }
 
     Pdel = Prec->nextKota;
+    PWarga = Pdel->next;
+    while (PWarga != NULL) {
+        tempWarga = PWarga;
+        PWarga = PWarga->next;
+        free(tempWarga);
+    }
     Prec->nextKota = Pdel->nextKota;
     Pdel->nextKota = Nil;
     free(Pdel);
